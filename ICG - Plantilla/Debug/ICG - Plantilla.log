@@ -1,0 +1,27 @@
+﻿  Figure.cpp
+  Line.cpp
+c:\users\alejandro\desktop\proyectos\cg\proyecto_1\src\line.cpp(21): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  Main.cpp
+  Quad.cpp
+  UserInterface.cpp
+  Generando código...
+Main.obj : error LNK2019: símbolo externo _glfwInit sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwTerminate sin resolver al que se hace referencia en la función "void __cdecl destroy(void)" (?destroy@@YAXXZ)
+Main.obj : error LNK2019: símbolo externo _glfwGetPrimaryMonitor sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwGetVideoMode sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwCreateWindow sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwDestroyWindow sin resolver al que se hace referencia en la función "void __cdecl destroy(void)" (?destroy@@YAXXZ)
+Main.obj : error LNK2019: símbolo externo _glfwWindowShouldClose sin resolver al que se hace referencia en la función _main
+Main.obj : error LNK2019: símbolo externo _glfwSetWindowShouldClose sin resolver al que se hace referencia en la función "void __cdecl keyInput(struct GLFWwindow *,int,int,int,int)" (?keyInput@@YAXPAUGLFWwindow@@HHHH@Z)
+Main.obj : error LNK2019: símbolo externo _glfwSetWindowPos sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwSetWindowSizeCallback sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwPollEvents sin resolver al que se hace referencia en la función _main
+Main.obj : error LNK2019: símbolo externo _glfwGetCursorPos sin resolver al que se hace referencia en la función "void __cdecl mouseButton(struct GLFWwindow *,int,int,int)" (?mouseButton@@YAXPAUGLFWwindow@@HHH@Z)
+Main.obj : error LNK2019: símbolo externo _glfwSetKeyCallback sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwSetCharCallback sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwSetMouseButtonCallback sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwSetCursorPosCallback sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwMakeContextCurrent sin resolver al que se hace referencia en la función "bool __cdecl initGlfw(void)" (?initGlfw@@YA_NXZ)
+Main.obj : error LNK2019: símbolo externo _glfwSwapBuffers sin resolver al que se hace referencia en la función _main
+C:\Users\Alejandro\Desktop\Proyectos\CG\Proyecto_1\\lib\glfw3dll.lib : warning LNK4272: el tipo de máquina de biblioteca 'x64' está en conflicto con el tipo de máquina de destino 'x86'
+C:\Users\Alejandro\Desktop\Proyectos\CG\Proyecto_1\Debug\ICG - Plantilla.exe : fatal error LNK1120: 18 externos sin resolver
