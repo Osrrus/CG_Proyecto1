@@ -29,7 +29,7 @@ void CLine::display()
 }
 
 void CLine::pintarLinea(int x1,int y1, int x2, int y2) {
-	int dx, dy, x, y, d, IncE, IncNE;
+	int dx, dy, x, y, d, IncE, IncNE,incremento;
 
 	dx = x2 - x1;
 	dy = y2 - y1;
@@ -44,6 +44,7 @@ void CLine::pintarLinea(int x1,int y1, int x2, int y2) {
 
 		if (dx >= 0) {
 
+			
 			d = dx - 2 * dy;
 			IncE = -2 * dy;
 			IncNE = 2 * (dx - dy);
@@ -87,24 +88,71 @@ void CLine::pintarLinea(int x1,int y1, int x2, int y2) {
 	}
 	else {
 
-		d = dy - 2 * dx;
-		IncE = -2 * dx;
-		IncNE = 2 * (dy - dx);
 
-		while (y < y2) {
-			if (d <= 0) {
+		if (dy >= 0) {
 
-				d = d + IncNE;
-				x++;
-
+			if (x > x2) {
+				incremento = -1;
+				d = dy + 2 * dx;
+				IncE = 2 * dx;
+				IncNE = 2 * (dy + dx);
 			}
 			else {
-				d = d + IncE;
+				incremento = 1;
+				d = dy - 2 * dx;
+				IncE = -2 * dx;
+				IncNE = 2 * (dy - dx);
 			}
 
-			y ++;
-			putPixel(x, y);
+			while (y < y2) {
+				if (d <= 0) {
 
+					d = d + IncNE;
+					x += incremento;
+
+				}
+				else {
+					d = d + IncE;
+				}
+
+				y++;
+				putPixel(x, y);
+
+			}
+			
+		}
+		else {
+
+			if (x > x2) {
+				incremento = -1;
+				d = -dy - 2 * dx;
+				IncE = -2 * dx;
+				IncNE = 2 * -(dy + dx);
+			}
+			else {
+				incremento = 1;
+				d = -dy - 2 * dx;
+				IncE = -2 * dx;
+				IncNE = 2 * (-dy - dx);
+			}
+
+			
+
+			while (y > y2) {
+				if (d <= 0) {
+
+					d = d + IncNE;
+					x +=incremento;
+
+				}
+				else {
+					d = d + IncE;
+				}
+
+				y--;
+				putPixel(x, y);
+
+			}
 		}
 	}
 		
