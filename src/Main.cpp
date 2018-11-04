@@ -2,6 +2,7 @@
 #include "Line.h"
 #include "Quad.h"
 #include "Circle.h"
+#include "Triangulo.h"
 #include "UserInterface.h"
 
 using std::vector;
@@ -13,6 +14,8 @@ CUserInterface * userInterface;
 vector <CFigure *> figures;
 FigureType figureSelected;
 int picked;
+int tFirst = 0;
+float tx, ty, tx2, ty2;
 
 void pick(int x, int y)
 {
@@ -117,6 +120,10 @@ void keyInput(GLFWwindow *window, int key, int scancode, int action, int mods)
 			figureSelected = Circle;
 			userInterface->hide();
 			break;
+		case GLFW_KEY_T:
+			figureSelected = Triangle;
+			userInterface->hide();
+			break;
 		}
 	}
 }
@@ -158,10 +165,35 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 		{
 			CCircle *circle = new CCircle();
 			circle->setVertex(0, ax, ay);
+			printf("%d %d\n", ax, ay);
 			circle->setVertex(1, ax, ay);
 			figures.push_back(circle);
 
 			gPress = true;
+		}
+		else if (figureSelected == Triangle)
+		{
+			if (tFirst == 0)
+			{
+				tx = ax;
+				ty = ay;
+				tFirst++;
+			}
+			else if(tFirst == 1)
+			{
+				tx2 = ax;
+				ty2 = ay;
+				tFirst++;
+			}
+			else {
+				Triangulo *triangle = new Triangulo;
+				triangle->setVertex(0, tx, ty);
+				triangle->setVertex(1, tx2, ty2);
+				triangle->setVertex(2, ax, ay);
+				figures.push_back(triangle);
+				tFirst = 0;
+				gPress = true;
+			}
 		}
 	}
 
@@ -176,10 +208,20 @@ void cursorPos(GLFWwindow* window, double x, double y)
 
 	if (gPress)
 	{
-		float ax = float(x);
-		float ay = gHeight - float(y);
+		if (figureSelected == Triangle)
+		{
+			float ax = float(x);
+			float ay = gHeight - float(y);
 
-		figures.back()->setVertex(1, ax, ay);
+			figures.back()->setVertex(2, ax, ay);
+		}else
+		{
+		
+			float ax = float(x);
+			float ay = gHeight - float(y);
+
+			figures.back()->setVertex(1, ax, ay);
+		}
 	}
 }
 
