@@ -22,10 +22,6 @@ void CLine::display()
 
 	pintarLinea(mVertices[0][0], mVertices[0][1], mVertices[1][0],mVertices[1][1]);
 
-	//glBegin(GL_LINES);
-		//glVertex2fv(mVertices[0]);
-		//glVertex2fv(mVertices[1]);
-	//glEnd();
 }
 
 void CLine::pintarLinea(int x1,int y1, int x2, int y2) {
