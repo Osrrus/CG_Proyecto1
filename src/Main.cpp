@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "Line.h"
 #include "Quad.h"
+#include "Circle.h"
 #include "UserInterface.h"
 
 using std::vector;
@@ -112,6 +113,10 @@ void keyInput(GLFWwindow *window, int key, int scancode, int action, int mods)
 			figureSelected = QUAD;
 			userInterface->hide();
 			break;
+		case GLFW_KEY_C:
+			figureSelected = Circle;
+			userInterface->hide();
+			break;
 		}
 	}
 }
@@ -140,12 +145,21 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 
 			gPress = true;
 		}
-		else
+		else if (figureSelected == QUAD)
 		{
 			CQuad *quad = new CQuad();
 			quad->setVertex(0, ax, ay);
 			quad->setVertex(1, ax, ay);
 			figures.push_back(quad);
+
+			gPress = true;
+		}
+		else if (figureSelected == Circle) 
+		{
+			CCircle *circle = new CCircle();
+			circle->setVertex(0, ax, ay);
+			circle->setVertex(1, ax, ay);
+			figures.push_back(circle);
 
 			gPress = true;
 		}
