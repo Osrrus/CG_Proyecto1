@@ -42,14 +42,21 @@ void pick(int x, int y)
 			picked = i;
 
 			userInterface->setFigureColor(figures[picked]->getColor());
+			userInterface->setPaintColor(figures[picked]->getPaintColor());
+			userInterface->setPaintFigure(figures[picked]->getPaintFigure());
 			userInterface->show();
 
 			int type = figures[picked]->getType();
 
 			if (type == LINE)
 				userInterface->setFigureType("Line");
-			else
+			else if (type == QUAD)
 				userInterface->setFigureType("Quad");
+			else if (type == Circle)
+				userInterface->setFigureType("Circle");
+			else if (type == Triangle)
+				userInterface->setFigureType("Triangle");
+
 
 			break;
 		}
@@ -61,7 +68,12 @@ void updateUserInterface()
 	if (picked > -1)
 	{
 		float * color = userInterface->getFigureColor();
+		bool p = userInterface->getPaintFigure();
+		float * paintColor = userInterface->getPaintColor();
+
 		figures[picked]->setColor(color[0], color[1], color[2]);
+		figures[picked]->setPaintColor(paintColor[0], paintColor[1], paintColor[2]);
+		figures[picked]->paintFigure(p);
 	}
 }
 

@@ -23,6 +23,19 @@ void CFigure::setColor(float r, float g, float b)
 	mColor[2] = b;
 }
 
+void CFigure::setPaintColor(float r, float g, float b)
+{
+	mPaintColor[0] = r;
+	mPaintColor[1] = g;
+	mPaintColor[2] = b;
+}
+
+void CFigure::paintFigure(bool a) {
+
+	mPaint = a;
+
+}
+
 int CFigure::getType()
 {
 	return mType;
@@ -36,4 +49,14 @@ float* CFigure::getVertex(int id)
 float* CFigure::getColor()
 {
 	return mColor;
+}
+
+float* CFigure::getPaintColor()
+{
+	return mPaintColor;
+}
+
+bool CFigure::getPaintFigure()
+{
+	return mPaint;
 }

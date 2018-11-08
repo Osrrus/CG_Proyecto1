@@ -19,13 +19,20 @@ CQuad::~CQuad()
 }
 
 void CQuad::display()
+
 {
+	if (mPaint) {
+
+		paint();
+
+	}
 	glColor3fv(mColor);
 	pintarLinea(mVertices[0][0], mVertices[0][1], mVertices[1][0], mVertices[0][1]);
 	pintarLinea(mVertices[0][0], mVertices[0][1], mVertices[0][0], mVertices[1][1]);
 	pintarLinea(mVertices[1][0], mVertices[1][1], mVertices[1][0], mVertices[0][1]);
 	pintarLinea(mVertices[1][0], mVertices[1][1], mVertices[0][0], mVertices[1][1]);
 
+	
 }
 
 void CQuad::pintarLinea(int x1, int y1, int x2, int y2) {
@@ -184,4 +191,30 @@ void CQuad::putPixel(int x, int y) {
 	glBegin(GL_POINTS);
 		glVertex2i(x, y);
 	glEnd();
+}
+
+void CQuad::paint() {
+
+	
+	int LimIX, LimSX , LimIY, LimSY;
+	if (mVertices[0][0] > mVertices[1][0]) {
+
+		LimSX = mVertices[0][0];
+		LimSY = mVertices[0][1];
+		LimIX = mVertices[1][0];
+		LimIY = mVertices[1][1];
+	}
+	else {
+
+		LimSX = mVertices[1][0];
+		LimSY = mVertices[1][1];
+		LimIX = mVertices[0][0];
+		LimIY = mVertices[0][1];
+	}
+
+	glColor3fv(mPaintColor);
+	while(LimIX < LimSX) {
+		pintarLinea(LimIX,LimSY, LimIX,LimIY);
+		LimIX++;
+	}
 }
