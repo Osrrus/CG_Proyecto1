@@ -8,4 +8,6 @@ class Triangulo :public CFigure
 		void display();
 		void pintarLinea(int, int, int, int);
 		void putPixel(int, int);
+		void generarBonding();
+		void generarBondingBox();
 };

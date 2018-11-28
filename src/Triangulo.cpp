@@ -183,3 +183,35 @@ void Triangulo::putPixel(int x, int y) {
 		glVertex2i(x, y);
 	glEnd();
 }
+
+void Triangulo::generarBonding() {
+
+	glColor3fv(mBondingColor);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[0][0], mBonding[1][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[0][0], mBonding[1][1]);
+}
+
+void Triangulo::generarBondingBox() {
+
+	mBonding[0][0] = 0;
+	mBonding[0][1] = 0;
+	mBonding[1][0] = INT_MAX;
+	mBonding[1][1] = INT_MAX;
+
+	for (int i = 0; i < 3; i++) {
+		if (mVertices[i][0] > mBonding[0][0]) {
+			mBonding[0][0] = mVertices[i][0];
+		}
+		if (mVertices[i][0] < mBonding[1][0]) {
+			mBonding[1][0] = mVertices[i][0];
+		}
+		if (mVertices[i][1] > mBonding[0][1]) {
+			mBonding[0][1] = mVertices[i][1];
+		}
+		if (mVertices[i][1] < mBonding[1][1]) {
+			mBonding[1][1] = mVertices[i][1];
+		}
+	}
+}

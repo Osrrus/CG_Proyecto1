@@ -13,7 +13,7 @@ bool gPress;
 CUserInterface * userInterface;
 vector <CFigure *> figures;
 FigureType figureSelected;
-int picked;
+int picked,conFigure = 0;
 int tFirst = 0;
 float tx, ty, tx2, ty2;
 
@@ -24,8 +24,8 @@ void pick(int x, int y)
 
 	for (unsigned int i = 0; i < figures.size(); i++)
 	{
-		float *v1 = figures[i]->getVertex(0);
-		float *v2 = figures[i]->getVertex(1);
+		float *v1 = figures[i]->getBonding(0);
+		float *v2 = figures[i]->getBonding(1);
 		float max[2];
 		float min[2];
 
@@ -79,11 +79,17 @@ void updateUserInterface()
 
 void display()
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for (unsigned int i = 0; i < figures.size(); i++)
 		figures[i]->display();
+
+	if (picked > -1) {
+		figures[picked]->generarBonding();
+	}
+
+	
 }
 
 void reshape(GLFWwindow *window, int width, int height)
@@ -211,6 +217,13 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 		gPress = false;
+
+	if (gPress == false && conFigure != figures.size()) {
+
+		figures[conFigure]->generarBondingBox();
+		conFigure = figures.size();
+		
+	}
 }
 
 void cursorPos(GLFWwindow* window, double x, double y)

@@ -35,6 +35,38 @@ void CQuad::display()
 	
 }
 
+void CQuad::generarBonding() {
+
+	glColor3fv(mBondingColor);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[0][0], mBonding[1][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[0][0], mBonding[1][1]);
+}
+
+void CQuad::generarBondingBox() {
+
+	if (mVertices[0][0] > mVertices[1][0]) {
+		mBonding[0][0] = mVertices[0][0]+4;
+		mBonding[1][0] = mVertices[1][0]-4;
+	}
+	else {
+		mBonding[0][0] = mVertices[1][0]+4;
+		mBonding[1][0] = mVertices[0][0]-4;
+	}
+
+	if (mVertices[0][1] > mVertices[1][1]) {
+
+		mBonding[0][1] = mVertices[0][1]+4;
+		mBonding[1][1] = mVertices[1][1]-4;
+	}
+	else {
+		mBonding[1][1] = mVertices[0][1]+4;
+		mBonding[0][1] = mVertices[1][1]-4;
+	}
+
+}	
+
 void CQuad::pintarLinea(int x1, int y1, int x2, int y2) {
 	int dx, dy, x, y, d, IncE, IncNE, incremento;
 

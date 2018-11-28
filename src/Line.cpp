@@ -181,3 +181,35 @@ void CLine::putPixel(int x,int y) {
 		glVertex2i(x, y);
 	glEnd();
 }
+
+void CLine::generarBonding() {
+
+	glColor3fv(mBondingColor);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[0][0], mBonding[0][1], mBonding[0][0], mBonding[1][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[1][0], mBonding[0][1]);
+	pintarLinea(mBonding[1][0], mBonding[1][1], mBonding[0][0], mBonding[1][1]);
+}
+
+void CLine::generarBondingBox() {
+
+	if (mVertices[0][0] > mVertices[1][0]) {
+		mBonding[0][0] = mVertices[0][0];
+		mBonding[1][0] = mVertices[1][0];
+	}
+	else {
+		mBonding[0][0] = mVertices[1][0];
+		mBonding[1][0] = mVertices[0][0];
+	}
+
+	if (mVertices[0][1] > mVertices[1][1]) {
+
+		mBonding[0][1] = mVertices[0][1];
+		mBonding[1][1] = mVertices[1][1];
+	}
+	else {
+		mBonding[1][1] = mVertices[0][1];
+		mBonding[0][1] = mVertices[1][1];
+	}
+
+}
