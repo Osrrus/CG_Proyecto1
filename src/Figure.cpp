@@ -81,7 +81,22 @@ float* CFigure::getPaintColor()
 	return mPaintColor;
 }
 
+float* CFigure::getMidPoint() {
+	float aux[1][2];
+	aux[0][0] = mBonding[0][0] - mBonding[1][0];
+	aux[0][1] = mBonding[0][1] - mBonding[1][1];
+	aux[0][0] = mBonding[0][0]- aux[0][0];
+	aux[0][1] = mBonding[0][1]- aux[0][1];
+	return aux[0];
+}
+
 bool CFigure::getPaintFigure()
 {
 	return mPaint;
+}
+
+void CFigure::mover(int id, float x, float y) {
+
+	mVertices[id][0] += x;
+	mVertices[id][1] += y;
 }

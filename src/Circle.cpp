@@ -20,7 +20,6 @@ CCircle::~CCircle()
 void CCircle::display()
 {
 	int r, rx, ry;
-	glColor3fv(mColor);
 
 	rx = mVertices[1][0] - mVertices[0][0];
 	rx = abs(rx);
@@ -61,14 +60,26 @@ void CCircle::pintarCirculo(int x1, int y1, int x2, int y2,int r) {
 
 void CCircle::octantes(int x,int y,int x1, int y1) {
 
+	if (mPaint) {
+		glColor3fv(mPaintColor);
+		pintarLinea(x1 + x, y1 + y, x1 - x, y1 + y);
+		pintarLinea(x1 + x, y1 - y, x1 - x, y1 - y);
+		pintarLinea(x1 + y, y1 + x, x1 - y, y1 + x);
+		pintarLinea(x1 + y, y1 - x, x1 - y, y1 - x);
+	}
+
+	glColor3fv(mColor);
 	putPixel( x1 +x, y1+y);
 	putPixel( x1 -x, y1+y);
 	putPixel( x1 +x, y1-y);
 	putPixel( x1 -x, y1-y);
+
 	putPixel( x1 +y, y1+x);
 	putPixel( x1 -y, y1+x);
 	putPixel( x1 +y, y1-x);
 	putPixel( x1 -y, y1-x);
+
+	
 
 }
 

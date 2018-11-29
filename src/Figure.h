@@ -9,6 +9,8 @@ enum FigureType
 	QUAD,
 	Circle,
 	Triangle,
+	Elipse,
+	Besier,
 };
 
 class CFigure
@@ -27,6 +29,7 @@ public:
 	void setBondingColor(float r, float g, float b);
 	void setPaintColor(float r, float g, float b);
 	void setBonding(int id, float x, float y);
+	void mover(int id, float x, float y);
 	void paintFigure(bool a);
 	virtual void display() = 0;
 	virtual void generarBonding() = 0;
@@ -37,5 +40,6 @@ public:
 	float* getColor();
 	float* getBondingColor();
 	float* getPaintColor();
+	float* getMidPoint();
 	bool getPaintFigure();
 };

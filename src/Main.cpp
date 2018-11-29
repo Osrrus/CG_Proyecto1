@@ -3,6 +3,7 @@
 #include "Quad.h"
 #include "Circle.h"
 #include "Triangulo.h"
+#include "Elipse.h"
 #include "UserInterface.h"
 
 using std::vector;
@@ -16,6 +17,8 @@ FigureType figureSelected;
 int picked,conFigure = 0;
 int tFirst = 0;
 float tx, ty, tx2, ty2;
+int picking;
+bool draw;
 
 void pick(int x, int y)
 {
@@ -56,7 +59,8 @@ void pick(int x, int y)
 				userInterface->setFigureType("Circle");
 			else if (type == Triangle)
 				userInterface->setFigureType("Triangle");
-
+			else if (type == Elipse)
+				userInterface->setFigureType("Elipse");
 
 			break;
 		}
@@ -74,6 +78,7 @@ void updateUserInterface()
 		figures[picked]->setColor(color[0], color[1], color[2]);
 		figures[picked]->setPaintColor(paintColor[0], paintColor[1], paintColor[2]);
 		figures[picked]->paintFigure(p);
+
 	}
 }
 
@@ -138,6 +143,11 @@ void keyInput(GLFWwindow *window, int key, int scancode, int action, int mods)
 			figureSelected = Circle;
 			userInterface->hide();
 			break;
+		case GLFW_KEY_E:
+			figureSelected = Elipse;
+			userInterface->hide();
+			break;
+
 		case GLFW_KEY_T:
 			figureSelected = Triangle;
 			userInterface->hide();
@@ -159,8 +169,26 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 		float ax = float(x);
 		float ay = gHeight - float(y);
 
-		if (figureSelected == NONE)
-			pick(int(ax), int(ay));
+		if (figureSelected == NONE) {
+
+			if (picked > -1) {
+
+				int a = picked;
+				pick(int(ax), int(ay));
+
+				if (picked == a) {
+
+					draw = true;
+					gPress = true;
+					
+				}
+			}
+			else {
+
+				pick(int(ax), int(ay));
+			}
+
+		}
 		else if (figureSelected == LINE)
 		{
 			CLine *line = new CLine();
@@ -183,9 +211,17 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 		{
 			CCircle *circle = new CCircle();
 			circle->setVertex(0, ax, ay);
-			printf("%d %d\n", ax, ay);
 			circle->setVertex(1, ax, ay);
 			figures.push_back(circle);
+
+			gPress = true;
+		}
+		else if (figureSelected == Elipse)
+		{
+			CElipse *elipse = new CElipse();
+			elipse->setVertex(0, ax, ay);
+			elipse->setVertex(1, ax, ay);
+			figures.push_back(elipse);
 
 			gPress = true;
 		}
@@ -215,8 +251,10 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 		}
 	}
 
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+		draw = false;
 		gPress = false;
+	}
 
 	if (gPress == false && conFigure != figures.size()) {
 
@@ -233,7 +271,31 @@ void cursorPos(GLFWwindow* window, double x, double y)
 
 	if (gPress)
 	{
-		if (figureSelected == Triangle)
+		if (draw) {
+			float ax = float(x);
+			float ay = gHeight - float(y);
+			float *mid = figures[picked]->getMidPoint();
+			ax += -mid[0];
+			ay += -mid[1];
+			ax = ax / 2;
+			ay = ay / 2;
+
+			if (figures[picked]->getType() == Triangle) {
+				figures[picked]->mover(0, ax,ay);
+				figures[picked]->mover(1, ax,ay);
+				figures[picked]->mover(2, ax,ay);
+				figures[picked]->generarBondingBox();
+			}
+			else {
+				figures[picked]->mover(0, ax, ay);
+				figures[picked]->mover(1, ax, ay);
+				figures[picked]->generarBondingBox();
+			}
+			
+
+
+		}
+		else if (figureSelected == Triangle)
 		{
 			float ax = float(x);
 			float ay = gHeight - float(y);
@@ -273,7 +335,7 @@ bool initGlfw()
 	if (!glfwInit())
 		return false;
 
-	gWindow = glfwCreateWindow(gWidth, gHeight, "ICG - Plantilla", NULL, NULL);
+	gWindow = glfwCreateWindow(gWidth, gHeight, "Proyecto1_Ricardo_Osuna", NULL, NULL);
 
 	if (!gWindow)
 	{
