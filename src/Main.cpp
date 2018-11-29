@@ -4,6 +4,7 @@
 #include "Circle.h"
 #include "Triangulo.h"
 #include "Elipse.h"
+#include "Besier.h"
 #include "UserInterface.h"
 
 using std::vector;
@@ -15,10 +16,12 @@ CUserInterface * userInterface;
 vector <CFigure *> figures;
 FigureType figureSelected;
 int picked,conFigure = 0;
-int tFirst = 0;
+int tFirst = 0,bFirst = 0;
 float tx, ty, tx2, ty2;
+float bx, by, bx2, by2;
 int picking;
 bool draw;
+CBesier *auxBesier;
 
 void pick(int x, int y)
 {
@@ -93,7 +96,6 @@ void display()
 	if (picked > -1) {
 		figures[picked]->generarBonding();
 	}
-
 	
 }
 
@@ -147,7 +149,10 @@ void keyInput(GLFWwindow *window, int key, int scancode, int action, int mods)
 			figureSelected = Elipse;
 			userInterface->hide();
 			break;
-
+		case GLFW_KEY_B:
+			figureSelected = Besier;
+			userInterface->hide();
+			break;
 		case GLFW_KEY_T:
 			figureSelected = Triangle;
 			userInterface->hide();
@@ -249,6 +254,31 @@ void mouseButton(GLFWwindow* window, int button, int action, int mods)
 				gPress = true;
 			}
 		}
+		else if (figureSelected == Besier)
+		{
+			if (bFirst == 0)
+			{
+				bx = ax;
+				by = ay;
+				bFirst++;
+			}
+			else if (bFirst == 1)
+			{
+				bx2 = ax;
+				by2 = ay;
+				bFirst++;
+			}
+			else {
+				CBesier *Besier = new CBesier;
+				Besier->setVertex(0,bx, by);
+				Besier->setVertex(1,bx2, by2);
+				Besier->setVertex(2,ax, ay);
+				figures.push_back(Besier);
+				auxBesier = Besier;
+				gPress = true;
+				bFirst = 0;
+			}
+		}
 	}
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
@@ -294,6 +324,11 @@ void cursorPos(GLFWwindow* window, double x, double y)
 			
 
 
+		}
+		else if (figureSelected == Besier) {
+			float ax = float(x);
+			float ay = gHeight - float(y);
+			figures.back()->setVertex(2, ax, ay);
 		}
 		else if (figureSelected == Triangle)
 		{
